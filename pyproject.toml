@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "sysint"
+version = "0.1.0"
+description = ""
+authors = ["Moshizzl3 <81045658+Moshizzl3@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12"
+pandas = "^2.2.0"
+pyyaml = "^6.0.1"
+lxml = "^5.1.0"
+pyarrow = "^15.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
