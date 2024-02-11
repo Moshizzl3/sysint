@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  api: &main_app
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile
+      target: prod
+    image: hans_in:${HANS_IN_VERSION:-latest}
+    restart: always
+    env_file:
+      - .env
+    environment:
+      HANS_IN_HOST: 0.0.0.0
