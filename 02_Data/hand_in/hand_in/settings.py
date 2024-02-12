@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
-        env_prefix = "HANS_IN_"
+        env_prefix = "HAND_IN_"
         env_file_encoding = "utf-8"
 
 

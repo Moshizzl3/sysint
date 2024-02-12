@@ -1,4 +1,4 @@
-# hans_in
+# hand_in
 
 This project was generated using fastapi_template.
 
@@ -11,7 +11,7 @@ To run the project use this set of commands:
 
 ```bash
 poetry install
-poetry run python -m hans_in
+poetry run python -m hand_in
 ```
 
 This will start the server on the configured host.
@@ -46,8 +46,8 @@ docker-compose -f deploy/docker-compose.yml --project-directory . build
 ## Project structure
 
 ```bash
-$ tree "hans_in"
-hans_in
+$ tree "hand_in"
+hand_in
 ├── conftest.py  # Fixtures for all tests.
 ├── __main__.py  # Startup script. Starts uvicorn.
 ├── services  # Package for different external services such as rabbit or redis etc.
@@ -68,18 +68,18 @@ This application can be configured with environment variables.
 You can create `.env` file in the root directory and place all
 environment variables here.
 
-All environment variables should start with "HANS_IN_" prefix.
+All environment variables should start with "HANd_IN_" prefix.
 
-For example if you see in your "hans_in/settings.py" a variable named like
-`random_parameter`, you should provide the "HANS_IN_RANDOM_PARAMETER"
+For example if you see in your "hand_in/settings.py" a variable named like
+`random_parameter`, you should provide the "HAND_IN_RANDOM_PARAMETER"
 variable to configure the value. This behaviour can be changed by overriding `env_prefix` property
-in `hans_in.settings.Settings.Config`.
+in `hand_in.settings.Settings.Config`.
 
 An example of .env file:
 ```bash
-HANS_IN_RELOAD="True"
-HANS_IN_PORT="8000"
-HANS_IN_ENVIRONMENT="dev"
+HAND_IN_RELOAD="True"
+HAND_IN_PORT="8000"
+HAND_IN_ENVIRONMENT="dev"
 ```
 
 You can read more about BaseSettings class here: https://pydantic-docs.helpmanual.io/usage/settings/
