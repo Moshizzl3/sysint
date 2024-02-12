@@ -7,6 +7,8 @@ from uuid import uuid4
 
 
 async def read_file(file: UploadFile) -> pd.DataFrame | None:
+    """Reads file based on extension."""
+
     if file.filename is None:
         return None
 
@@ -23,7 +25,7 @@ async def read_file(file: UploadFile) -> pd.DataFrame | None:
     elif file.filename.endswith(".yaml"):
         return pd.json_normalize(yaml.safe_load(StringIO(content.decode())))
     else:
-        raise ValueError("Not a valid input.")
+        return None
 
 
 async def convert_to_format(df: pd.DataFrame, format_type: str, file_path: str) -> str:
