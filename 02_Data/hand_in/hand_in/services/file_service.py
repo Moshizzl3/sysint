@@ -38,10 +38,10 @@ async def convert_to_format(df: pd.DataFrame, format_type: str, file_path: str) 
     elif format_type == "json":
         return df.to_json(path_or_buf=file_path, orient="records", lines=False)
     elif format_type == "xml":
-        return df.to_xml()
+        return df.to_xml(file_path)
     elif format_type == "yaml":
         dict_data = df.to_dict(orient="records")
-        with open("output.yaml", "w") as file:
+        with open(file_path, "w") as file:
             return yaml.dump(dict_data, file)
     else:
         raise ValueError("Not a valid 'to' input.")
