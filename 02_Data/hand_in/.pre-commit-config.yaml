@@ -60,4 +60,4 @@ repos:
             types: [python]
             pass_filenames: false
             args:
-              - "hans_in"
+              - "hand_in"

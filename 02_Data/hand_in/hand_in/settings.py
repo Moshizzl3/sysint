@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     # quantity of workers for uvicorn
     workers_count: int = 1
     # Enable uvicorn reloading
-    reload: bool = False
+    reload: bool = True
 
     # Current environment
     environment: str = "dev"
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
-        env_prefix = "HANS_IN_"
+        env_prefix = "HAND_IN_"
         env_file_encoding = "utf-8"
 
 

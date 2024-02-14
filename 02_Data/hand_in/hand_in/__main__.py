@@ -1,12 +1,12 @@
 import uvicorn
 
-from hans_in.settings import settings
+from hand_in.settings import settings
 
 
 def main() -> None:
     """Entrypoint of the application."""
     uvicorn.run(
-        "hans_in.web.application:get_app",
+        "hand_in.web.application:get_app",
         workers=settings.workers_count,
         host=settings.host,
         port=settings.port,

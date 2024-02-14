@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hans_in"
+name = "hand_in"
 version = "0.1.0"
 description = ""
 authors = [
@@ -18,6 +18,8 @@ pydantic = { version = "^1", extras=["dotenv"] }
 yarl = "^1.9.2"
 ujson = "^5.8.0"
 httptools = "^0.6.0"
+python-multipart = "^0.0.9"
+pyyaml = "^6.0.1"
 
 
 [tool.poetry.dev-dependencies]
@@ -37,7 +39,7 @@ httpx = "^0.23.3"
 [tool.isort]
 profile = "black"
 multi_line_output = 3
-src_paths = ["hans_in",]
+src_paths = ["hand_in",]
 
 [tool.mypy]
 strict = true
@@ -59,12 +61,12 @@ filterwarnings = [
     "ignore:.*unclosed.*:ResourceWarning",
 ]
 env = [
-    "HANS_IN_ENVIRONMENT=pytest",
-    "HANS_IN_DB_BASE=hans_in_test",
+    "HAND_IN_ENVIRONMENT=pytest",
+    "HAND_IN_DB_BASE=hand_in_test",
 ]
 
 [fastapi-template.options]
-project_name = "hans_in"
+project_name = "hand_in"
 api_type = "rest"
 enable_redis = "None"
 enable_rmq = "None"

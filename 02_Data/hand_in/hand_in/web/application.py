@@ -3,8 +3,8 @@ from importlib import metadata
 from fastapi import FastAPI
 from fastapi.responses import UJSONResponse
 
-from hans_in.web.api.router import api_router
-from hans_in.web.lifetime import register_shutdown_event, register_startup_event
+from hand_in.web.api.router import api_router
+from hand_in.web.lifetime import register_shutdown_event, register_startup_event
 
 
 def get_app() -> FastAPI:
@@ -16,8 +16,8 @@ def get_app() -> FastAPI:
     :return: application.
     """
     app = FastAPI(
-        title="hans_in",
-        version=metadata.version("hans_in"),
+        title="hand_in",
+        version=metadata.version("hand_in"),
         docs_url="/api/docs",
         redoc_url="/api/redoc",
         openapi_url="/api/openapi.json",
