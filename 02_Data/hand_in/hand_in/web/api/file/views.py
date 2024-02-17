@@ -1,165 +1,56 @@
 from fastapi import (
     APIRouter,
-    UploadFile,
-    File,
-    HTTPException,
-    BackgroundTasks,
 )
-from hand_in.services.file_service import read_file, convert_to_format
-from fastapi.responses import FileResponse
-from uuid import uuid4
-import os
-import tempfile
+from hand_in.services import file_service
+from pydantic import BaseModel
 
 router = APIRouter()
 
 
-def background_task_remove_file(file_path: str) -> None:
-    """Remove file, if the file exist."""
-
-    if os.path.exists(file_path):
-        os.remove(file_path)
+class DataResponseDTO(BaseModel):
+    data: file_service.PokemonDTO
 
 
-@router.post("/csv")
-async def convert_to_csv(
-    back_ground_task: BackgroundTasks, file: UploadFile = File(...)
-) -> FileResponse:
-    """
-    Convert file to csv, and return the file.
-    The file is stored in temp folder on the server,
-    and then deleted through the background task.
-    """
+@router.get("/json")
+async def get_json_file() -> DataResponseDTO:
+    """Endpoint for getting json file data."""
 
-    df = await read_file(file)
-    if df is None:
-        raise HTTPException(status_code=400, detail="File format not supported")
+    response_dto = file_service.read_json_file()
 
- 
-    # Generate a unique temporary file path
-    temp_dir = tempfile.gettempdir()
-    temp_file_name = f"{uuid4()}.csv"
-    temp_file_path = os.path.join(temp_dir, temp_file_name)
-
-    await convert_to_format(df=df, format_type="csv", file_path=temp_file_path)
-
-    # Add background task to delete the file.
-    back_ground_task.add_task(background_task_remove_file, temp_file_path)
-
-    return FileResponse(temp_file_path, filename="converted.csv", media_type="text/csv")
+    return DataResponseDTO(data=response_dto)
 
 
-@router.post("/txt")
-async def convert_to_txt(
-    back_ground_task: BackgroundTasks, file: UploadFile = File(...)
-) -> FileResponse:
-    """
-    Convert file to txt, and return the file.
-    The file is stored in temp folder on the server,
-    and then deleted through the background task.
-    """
+@router.get("/csv")
+async def get_csv_file() -> DataResponseDTO:
+    """Endpoint for getting csv file data."""
 
-    df = await read_file(file)
-    if df is None:
-        raise HTTPException(status_code=400, detail="File format not supported")
+    response_dto = file_service.read_csv_file()
 
-    # Generate a unique temporary file path
-    temp_dir = tempfile.gettempdir()
-    temp_file_name = f"{uuid4()}.txt"
-    temp_file_path = os.path.join(temp_dir, temp_file_name)
-
-    await convert_to_format(df=df, format_type="txt", file_path=temp_file_path)
-
-    # Add background task to delete the file.
-    back_ground_task.add_task(background_task_remove_file, temp_file_path)
-
-    return FileResponse(
-        temp_file_path, filename="converted.txt", media_type="text/plain"
-    )
+    return DataResponseDTO(data=response_dto)
 
 
-@router.post("/json")
-async def convert_to_json(
-    back_ground_task: BackgroundTasks, file: UploadFile = File(...)
-) -> FileResponse:
-    """
-    Convert file to json, and return the file.
-    The file is stored in temp folder on the server,
-    and then deleted through the background task.
-    """
+@router.get("/txt")
+async def get_txt_file() -> DataResponseDTO:
+    """Endpoint for getting txt file data."""
 
-    df = await read_file(file)
-    if df is None:
-        raise HTTPException(status_code=400, detail="File format not supported")
+    response_dto = file_service.read_txt_file()
 
-    # Generate a unique temporary file path
-    temp_dir = tempfile.gettempdir()
-    temp_file_name = f"{uuid4()}.json"
-    temp_file_path = os.path.join(temp_dir, temp_file_name)
-
-    await convert_to_format(df=df, format_type="json", file_path=temp_file_path)
-
-    # Add background task to delete the file.
-    back_ground_task.add_task(background_task_remove_file, temp_file_path)
-
-    return FileResponse(
-        temp_file_path, filename="converted.json", media_type="application/json"
-    )
+    return DataResponseDTO(data=response_dto)
 
 
-@router.post("/xml")
-async def convert_to_xml(
-    back_ground_task: BackgroundTasks, file: UploadFile = File(...)
-) -> FileResponse:
-    """
-    Convert file to xml, and return the file.
-    The file is stored in temp folder on the server,
-    and then deleted through the background task.
-    """
+@router.get("/xml")
+async def get_xml_file() -> DataResponseDTO:
+    """Endpoint for getting xml file data."""
 
-    df = await read_file(file)
-    if df is None:
-        raise HTTPException(status_code=400, detail="File format not supported")
+    response_dto = file_service.read_xml_file()
 
-    # Generate a unique temporary file path
-    temp_dir = tempfile.gettempdir()
-    temp_file_name = f"{uuid4()}.xml"
-    temp_file_path = os.path.join(temp_dir, temp_file_name)
-
-    await convert_to_format(df=df, format_type="xml", file_path=temp_file_path)
-
-    # Add background task to delete the file.
-    back_ground_task.add_task(background_task_remove_file, temp_file_path)
-
-    return FileResponse(
-        temp_file_path, filename="converted.xml", media_type="application/xml"
-    )
+    return DataResponseDTO(data=response_dto)
 
 
-@router.post("/yaml")
-async def convert_to_yaml(
-    back_ground_task: BackgroundTasks, file: UploadFile = File(...)
-) -> FileResponse:
-    """
-    Convert file to yaml, and return the file.
-    The file is stored in temp folder on the server,
-    and then deleted through the background task.
-    """
+@router.get("/yaml")
+async def get_yaml_file() -> DataResponseDTO:
+    """Endpoint for getting yaml file data."""
 
-    df = await read_file(file)
-    if df is None:
-        raise HTTPException(status_code=400, detail="File format not supported")
+    response_dto = file_service.read_yaml_file()
 
-    # Generate a unique temporary file path
-    temp_dir = tempfile.gettempdir()
-    temp_file_name = f"{uuid4()}.yaml"
-    temp_file_path = os.path.join(temp_dir, temp_file_name)
-
-    await convert_to_format(df=df, format_type="yaml", file_path=temp_file_path)
-
-    # Add background task to delete the file.
-    back_ground_task.add_task(background_task_remove_file, temp_file_path)
-
-    return FileResponse(
-        temp_file_path, filename="converted.yaml", media_type="application/yaml"
-    )
+    return DataResponseDTO(data=response_dto)
