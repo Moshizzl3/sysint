@@ -15,42 +15,42 @@ class DataResponseDTO(BaseModel):
 async def get_json_file() -> DataResponseDTO:
     """Endpoint for getting json file data."""
 
-    response_dto = file_service.read_json_file()
+    pokemon_dto = file_service.read_json_file()
 
-    return DataResponseDTO(data=response_dto)
+    return DataResponseDTO(data=pokemon_dto)
 
 
 @router.get("/csv")
 async def get_csv_file() -> DataResponseDTO:
     """Endpoint for getting csv file data."""
 
-    response_dto = file_service.read_csv_file()
+    pokemon_dto = file_service.read_csv_file()
 
-    return DataResponseDTO(data=response_dto)
+    return DataResponseDTO(data=pokemon_dto)
 
 
 @router.get("/txt")
 async def get_txt_file() -> DataResponseDTO:
     """Endpoint for getting txt file data."""
 
-    response_dto = file_service.read_txt_file()
+    pokemon_dto = file_service.read_txt_file()
 
-    return DataResponseDTO(data=response_dto)
+    return DataResponseDTO(data=pokemon_dto)
 
 
 @router.get("/xml")
 async def get_xml_file() -> DataResponseDTO:
     """Endpoint for getting xml file data."""
 
-    response_dto = file_service.read_xml_file()
+    pokemon_dto = file_service.read_xml_file()
 
-    return DataResponseDTO(data=response_dto)
+    return DataResponseDTO(data=pokemon_dto)
 
 
 @router.get("/yaml")
 async def get_yaml_file() -> DataResponseDTO:
     """Endpoint for getting yaml file data."""
 
-    response_dto = file_service.read_yaml_file()
+    pokemon_dto = file_service.read_yaml_file()
 
-    return DataResponseDTO(data=response_dto)
+    return DataResponseDTO(data=pokemon_dto)
