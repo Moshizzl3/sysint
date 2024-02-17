@@ -1,47 +1,74 @@
 import pandas as pd
 import xml.etree.ElementTree as ET
 import yaml
-from fastapi import UploadFile
-from io import StringIO
-from uuid import uuid4
+from pydantic import BaseModel
+import json
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+PATH_TO_FILES = BASE_DIR / "static" / "files" / "pokemon"
 
 
-async def read_file(file: UploadFile) -> pd.DataFrame | None:
-    """Reads file based on extension."""
+class PokemonDTO(BaseModel):
+    """DTO for a Pokemon"""
 
-    if file.filename is None:
-        return None
-
-    content = await file.read()
-
-    if file.filename.endswith(".csv"):
-        return pd.read_csv(StringIO(content.decode()))
-    elif file.filename.endswith(".txt"):
-        return pd.read_csv(StringIO(content.decode()), sep=" ")
-    elif file.filename.endswith(".json"):
-        return pd.read_json(StringIO(content.decode()), lines=True)
-    elif file.filename.endswith(".xml"):
-        return pd.read_xml(StringIO(content.decode()))
-    elif file.filename.endswith(".yaml"):
-        return pd.json_normalize(yaml.safe_load(StringIO(content.decode())))
-    else:
-        return None
+    name: str
+    level: int
+    elements: list[str]
 
 
-async def convert_to_format(df: pd.DataFrame, format_type: str, file_path: str) -> str:
-    """Function to convert DataFrame to various formats and return as string."""
+def read_json_file() -> PokemonDTO:
+    """Read json file, and return PokemonDTO."""
 
-    if format_type == "csv":
-        return df.to_csv(path_or_buf=file_path, index=False)
-    elif format_type == "txt":
-        return df.to_csv(path_or_buf=file_path, sep="\t", index=False)
-    elif format_type == "json":
-        return df.to_json(path_or_buf=file_path, orient="records", lines=False)
-    elif format_type == "xml":
-        return df.to_xml(file_path)
-    elif format_type == "yaml":
-        dict_data = df.to_dict(orient="records")
-        with open(file_path, "w") as file:
-            return yaml.dump(dict_data, file)
-    else:
-        raise ValueError("Not a valid 'to' input.")
+    with open(f"{PATH_TO_FILES}.json", "r") as file:
+        data = json.load(file)
+
+    return PokemonDTO(**data)
+
+
+def read_csv_file() -> PokemonDTO:
+    """Read csv file, and return PokemonDTO."""
+
+    data = pd.read_csv(f"{PATH_TO_FILES}.csv").to_dict(orient="records")
+    record = data[0]
+    record["elements"] = record["elements"].split()
+
+    return PokemonDTO(**record)
+
+
+def read_txt_file() -> PokemonDTO:
+    """Read txt file, and return PokemonDTO."""
+
+    with open(f"{PATH_TO_FILES}.txt", "r") as file:
+        lines = file.readlines()
+    data = lines[1].split()
+
+    name = data[0]
+    level = int(data[1])
+    elements = data[2:]
+
+    return PokemonDTO(name=name, level=level, elements=elements)
+
+
+def read_xml_file() -> PokemonDTO:
+    """Read xml file, and return PokemonDTO."""
+
+    # Parse file
+    tree = ET.parse(f"{PATH_TO_FILES}.xml")
+    root = tree.getroot()
+
+    # Extract data
+    name = root.find("name").text
+    level = int(root.find("level").text)
+    elements = [elem.text for elem in root.find("elements").findall("element")]
+
+    return PokemonDTO(name=name, level=level, elements=elements)
+
+
+def read_yaml_file() -> PokemonDTO:
+    """Read json file, and return PokemonDTO."""
+
+    with open(f"{PATH_TO_FILES}.yaml", "r") as file:
+        data = yaml.safe_load(file)
+
+    return PokemonDTO(**data)
