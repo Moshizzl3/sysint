@@ -1,10 +1,8 @@
 use crate::dtos::pokemon_dtos::PokemonDTO;
-use crate::dtos::{pokemon_dtos, response_dto};
-use crate::service::file_service::DataReader;
+use crate::dtos::response_dto;
 use actix_web::{get, web, HttpResponse, Responder};
 use reqwest;
 
-const  PATH_TO_FILES: &str = "/Users/mohamedibrahim/Desktop/2-semester.nosync/sysint/sysint/03a_Data_parsing_server/hand_in/src/static/files/";
 const BASE_URL: &str = "http://localhost:8000/api/file";
 
 #[get("/csv")]
