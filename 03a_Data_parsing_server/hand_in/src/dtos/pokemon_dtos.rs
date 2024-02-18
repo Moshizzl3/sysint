@@ -3,21 +3,21 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PokemonDTO {
     pub name: String,
-    pub level: i8,
+    pub level: i16,
     pub elements: Vec<String>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct PokemonInputDTO {
     pub name: String,
-    pub level: i8,
+    pub level: i16,
     pub elements: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct PokemonInputXmlDTO {
     pub name: String,
-    pub level: i8,
+    pub level: i16,
     pub elements: Elements,
 }
 
