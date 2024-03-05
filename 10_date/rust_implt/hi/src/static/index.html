@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+    <button hx-get="https://cc19-195-249-146-100.ngrok-free.app/mo/html" 
+            hx-target="#response-data" 
+            hx-swap="innerHTML" 
+            hx-headers='{"ngrok-skip-browser-warning": "69420"}'>Get data</button>
+    <div id="response-data">Response data will appear here</div>
+</body>
+</html>
