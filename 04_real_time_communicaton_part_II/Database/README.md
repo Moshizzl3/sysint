@@ -13,16 +13,8 @@ This document outlines the access privileges and connection instructions for dif
     <details>
     <summary>Click to expand</summary>
 
-     ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreaduserall testdb
      PASSWORD: '123'
-     ```√√√SELECT * FROM users;SELECT * FROM users;
-
-     Example
-     ```sql
-     SELECT * FROM users;
-     ```
-     </details>
 
 2. **myreadusersome**
    - **Description**: Read-only access to specific tables
