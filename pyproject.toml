@@ -5,7 +5,9 @@ description = ""
 authors = ["Moshizzl3 <81045658+Moshizzl3@users.noreply.github.com>"]
 readme = "README.md"
 
-[tool.poetry.dependencies]
+
+
+[tool.poetry.dev.dependencies]
 python = "3.12"
 pandas = "^2.2.0"
 pyyaml = "^6.0.1"
