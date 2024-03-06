@@ -63,62 +63,55 @@ ul.task-list li input[type="checkbox"] {
 <summary>
 Click to expand
 </summary>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreaduserall testdb
-PASSWORD: '123'
-```√√√SELECT * FROM users;SELECT * FROM users;
-
-Example
-```sql
-SELECT * FROM users;</code></pre>
-</details></li>
+pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreaduserall testdb PASSWORD: ‘123’</details></li>
 </ul></li>
 <li><strong>myreadusersome</strong>
 <ul>
 <li><p><strong>Description</strong>: Read-only access to specific tables</p></li>
 <li><p><strong>Privileges</strong>: <code>SELECT</code> on <code>accounts</code>, <code>transactions</code> tables</p></li>
 <li><p><strong>Usage</strong>:</p>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreadusersome testdb
-PASSWORD: '123'</code></pre></li>
+<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreadusersome testdb</code></pre>
+<pre><code>PASSWORD: '123'</code></pre></li>
 </ul></li>
 <li><strong>mywriteuserall</strong>
 <ul>
 <li><p><strong>Description</strong>: Full access to all tables</p></li>
 <li><p><strong>Privileges</strong>: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> on all tables in the <code>public</code> schema</p></li>
 <li><p><strong>Usage</strong>:</p>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mywriteuserall testdb
-PASSWORD: '123'</code></pre></li>
+<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mywriteuserall testdb</code></pre>
+<pre><code>PASSWORD: '123'</code></pre></li>
 </ul></li>
 <li><strong>mywriteusersome</strong>
 <ul>
 <li><p><strong>Description</strong>: Full access to specific tables</p></li>
 <li><p><strong>Privileges</strong>: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> on <code>accounts</code> table</p></li>
 <li><p><strong>Usage</strong>:</p>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mywriteusersome testdb
-PASSWORD: '123'</code></pre></li>
+<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mywriteusersome testdb</code></pre>
+<pre><code>PASSWORD: '123'</code></pre></li>
 </ul></li>
 <li><strong>myviewuser</strong>
 <ul>
-<li><p><strong>Description</strong>: Read-only access to views</p></li>
-<li><p><strong>Privileges</strong>: <code>SELECT</code> on <code>tranction_view</code></p></li>
-<li><p><strong>Usage</strong>:</p>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myviewuser testdb
-PASSWORD: '123'</code></pre></li>
-</ul></li>
+<li><strong>Description</strong>: Read-only access to views</li>
+<li><strong>Privileges</strong>: <code>SELECT</code> on <code>tranction_view</code></li>
+<li><strong>Usage</strong>:</li>
+</ul>
+<pre><code>  pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myviewuser testdb</code></pre>
+<pre><code>  PASSWORD: '123'</code></pre></li>
 <li><strong>myfunctionuser</strong>
 <ul>
 <li><p><strong>Description</strong>: Execute specific functions</p></li>
 <li><p><strong>Privileges</strong>: <code>EXECUTE</code> on <code>generate_test_data(INT, INT, INT)</code> function</p></li>
 <li><p><strong>Usage</strong>:</p>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myfunctionuser testdb
-PASSWORD: '123'</code></pre></li>
+<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myfunctionuser testdb</code></pre>
+<pre><code>PASSWORD: '123'</code></pre></li>
 </ul></li>
 <li><strong>mycolumnuserread</strong>
 <ul>
 <li><p><strong>Description</strong>: Read-only access to specific columns</p></li>
 <li><p><strong>Privileges</strong>: <code>SELECT</code> (<code>id</code>, <code>user_name</code>) on <code>users</code> table</p></li>
 <li><p><strong>Usage</strong>:</p>
-<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mycolumnuserread testdb
-PASSWORD: '123'</code></pre></li>
+<pre><code>pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mycolumnuserread testdb</code></pre>
+<pre><code>PASSWORD: '123'</code></pre></li>
 </ul></li>
 </ol>
 </section>

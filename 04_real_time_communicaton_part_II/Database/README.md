@@ -23,6 +23,9 @@ This document outlines the access privileges and connection instructions for dif
 
      ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreadusersome testdb
+      ```
+
+      ```
      PASSWORD: '123'
      ```
 
@@ -33,6 +36,9 @@ This document outlines the access privileges and connection instructions for dif
 
      ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mywriteuserall testdb
+      ```
+
+     ```
      PASSWORD: '123'
      ```
 
@@ -41,20 +47,26 @@ This document outlines the access privileges and connection instructions for dif
    - **Privileges**: `SELECT`, `INSERT`, `UPDATE`, `DELETE` on `accounts` table
    - **Usage**:
 
-     ```
+      ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mywriteusersome testdb
+       ```
+
+      ```
      PASSWORD: '123'
-     ```
+      ```
 
 5. **myviewuser**
    - **Description**: Read-only access to views
    - **Privileges**: `SELECT` on `tranction_view`
    - **Usage**:
 
-     ```
+   ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myviewuser testdb
+   ```
+
+   ```
      PASSWORD: '123'
-     ```
+   ```
 
 6. **myfunctionuser**
    - **Description**: Execute specific functions
@@ -63,6 +75,9 @@ This document outlines the access privileges and connection instructions for dif
 
      ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myfunctionuser testdb
+     ```
+
+     ```
      PASSWORD: '123'
      ```
 
@@ -73,5 +88,8 @@ This document outlines the access privileges and connection instructions for dif
 
      ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U mycolumnuserread testdb
+     ```
+
+     ```
      PASSWORD: '123'
      ```
