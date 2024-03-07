@@ -75,13 +75,13 @@ password: 123
    - **Privileges**: `SELECT` on `tranction_view`
    - **Usage**:
 
-   ```
+     ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myviewuser testdb
-   ```
+     ```
 
-   ```
+     ```
      PASSWORD: '123'
-   ```
+     ```
 
 6. **myfunctionuser**
    - **Description**: Execute specific functions
