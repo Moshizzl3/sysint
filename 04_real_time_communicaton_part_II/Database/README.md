@@ -6,15 +6,30 @@ This document outlines the access privileges and connection instructions for dif
 
 ### Users and Their Privileges
 
+pgcli is used in the example as a service, you can copy paste the commands into the terminal if you have pgcli installed.
+To connected in other ways here are the credentials:
+
+```
+host: dbservername.postgres.database.azure.com 
+port: 5432
+user: XXX
+password: 123
+```
+
+
 1. **myreaduserall**
    - **Description**: Read-only access to all tables
    - **Privileges**: `SELECT` on all tables in the `public` schema
    - **Usage**:
-    <details>
-    <summary>Click to expand</summary>
 
+    ```
      pgcli -h dbservername.postgres.database.azure.com -p 5432 -U myreaduserall testdb
+    ```
+
+    ```
      PASSWORD: '123'
+    ```
+
 
 2. **myreadusersome**
    - **Description**: Read-only access to specific tables

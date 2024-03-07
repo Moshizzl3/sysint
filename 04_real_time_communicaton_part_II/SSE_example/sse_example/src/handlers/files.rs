@@ -8,15 +8,14 @@ use utoipa::{
 
 const  PATH_TO_FILES: &str = "/Users/mohamedibrahim/Desktop/2-semester.nosync/sysint/sysint/03a_Data_parsing_server/hand_in/src/static/files/";
 
-
 #[utoipa::path(
-    context_path = "/",
+    path="/files/csv",
     responses(
-        (status = 200, description = "Hello from api 1", body = response_dto::ResponseData)
+        (status = 200, description = "Hello from api 1", body = ResponseDataPokemonDTO)
     )
 )]
 #[get("/csv")]
-async fn get_csv_data() -> impl Responder {
+pub async fn get_csv_data() -> impl Responder {
     let file_reader = DataReader::new(PATH_TO_FILES);
 
     match file_reader.read_csv() {
@@ -63,12 +62,10 @@ async fn get_csv_data() -> impl Responder {
 //     }
 // }
 
-// pub fn files_router_config(cfg: &mut web::ServiceConfig) {
-//     cfg.service(
-//         web::scope("files")
-//             .service(get_csv_data)
-//             .service(get_json_data)
-//             .service(get_xml_data)
-//             .service(get_yaml_data),
-//     );
-// }
+pub fn files_router_config(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("files").service(get_csv_data), // .service(get_json_data)
+                                                   // .service(get_xml_data)
+                                                   // .service(get_yaml_data),
+    );
+}

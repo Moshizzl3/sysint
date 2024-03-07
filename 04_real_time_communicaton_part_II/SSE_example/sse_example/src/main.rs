@@ -1,6 +1,8 @@
+use crate::dtos::pokemon_dtos::PokemonDTO;
+use crate::dtos::response_dto::{ResponseDataPokemonDTO, ResponseDataString};
 use crate::handlers::{external::external_router_config, files::files_router_config};
-use actix_web::{middleware::Logger, App, HttpServer};
-use crate::dtos::response_dto::ResponseData;
+use actix_web::{get, middleware::Logger, App, HttpResponse, HttpServer, Responder};
+use serde::{Deserialize, Serialize};
 use utoipa::{
     openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
     Modify, OpenApi, ToSchema,
@@ -17,14 +19,8 @@ async fn main() -> std::io::Result<()> {
 
     #[derive(OpenApi)]
     #[openapi(
-        paths(
-            external_router_config,files_router_config
-        ),
-        components(
-            schemas(
-                ResponseData<T>
-            )
-        ),
+        paths(handlers::files::get_csv_data),
+        components(schemas(ResponseDataString, ResponseDataPokemonDTO, PokemonDTO))
     )]
 
     struct ApiDoc;
