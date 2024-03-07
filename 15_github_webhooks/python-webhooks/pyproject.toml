@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python-webhooks"
+version = "0.1.0"
+description = ""
+authors = ["Moshizzl3 <81045658+Moshizzl3@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "python_webhooks"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.0"
+uvicorn = "^0.27.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
