@@ -11,11 +11,10 @@ app.get("/requestFastApi", async (req, res) => {
   res.status(200).send({ message: response_json.message });
 });
 
-const PORT = 8080;
-app.listen(8080, console.log("Server is running on port", PORT));
-
 app.get("/express-data", (req, res) => {
   res.status(200).send({ isRunning: "true" });
 });
 
+const PORT = 8080;
+app.listen(8080, console.log("Server is running on port", PORT));
 

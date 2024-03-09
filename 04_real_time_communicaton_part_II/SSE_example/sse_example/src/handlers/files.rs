@@ -6,7 +6,7 @@ use utoipa::{
     Modify, OpenApi, ToSchema,
 };
 
-const  PATH_TO_FILES: &str = "/Users/mohamedibrahim/Desktop/2-semester.nosync/sysint/sysint/03a_Data_parsing_server/hand_in/src/static/files/";
+const  PATH_TO_FILES: &str = "/Users/mohamedibrahim/Desktop/2-semester.nosync/sysint/sysint/04_real_time_communicaton_part_II/SSE_example/sse_example/src/static/filekjs/";
 
 #[utoipa::path(
     path="/files/csv",
