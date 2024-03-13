@@ -38,42 +38,4 @@ impl DataReader {
             return Err("No data found in CSV".into());
         }
     }
-
-    /// Read JSON file and return content as a PokemonDTO.
-    pub fn read_json(&self) -> Result<PokemonDTO, Box<dyn Error>> {
-        let file_path = self.path.clone() + "pokemon.json";
-        // Read the file to a string
-        let data = fs::read_to_string(file_path)?;
-
-        // Deserialize the JSON string into PokemonDTO
-        let pokemon: PokemonDTO = serde_json::from_str(&data)?;
-
-        println!("{:?}", pokemon);
-        Ok(pokemon)
-    }
-
-    pub fn read_xml(&self) -> Result<PokemonDTO, Box<dyn Error>> {
-        let file_path = self.path.clone() + "pokemon.xml";
-        let xml_content = fs::read_to_string(&file_path)?;
-        let input_dto: PokemonInputXmlDTO = serde_xml_rs::from_str(&xml_content)?;
-
-        // Convert to PokemonDTO
-        let pokemon_dto = PokemonDTO {
-            name: input_dto.name,
-            level: input_dto.level,
-            elements: input_dto.elements.element,
-        };
-        println!("{:?}", pokemon_dto);
-
-        Ok(pokemon_dto)
-    }
-
-    pub fn read_yaml(&self) -> Result<PokemonDTO, Box<dyn Error>> {
-        let file_path = self.path.clone() + "pokemon.yaml";
-        let data = fs::read_to_string(file_path)?;
-
-        let pokemon: PokemonDTO = serde_yaml::from_str(&data)?;
-        println!("{:?}", pokemon);
-        Ok(pokemon)
-    }
 }

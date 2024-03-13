@@ -1,9 +1,5 @@
 use serde::{Deserialize, Serialize};
-use utoipa::{
-    openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
-    Modify, OpenApi, ToSchema,
-};
-
+use utoipa::ToSchema;
 
 #[derive(Serialize, Deserialize, Debug, ToSchema)]
 pub struct PokemonDTO {

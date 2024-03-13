@@ -1,2 +1,0 @@
-name level elements
-dratini 34 Fire Water Ice

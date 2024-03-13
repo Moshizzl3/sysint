@@ -1,12 +1,10 @@
 use crate::dtos::pokemon_dtos::PokemonDTO;
 use crate::dtos::response_dto::{ResponseDataPokemonDTO, ResponseDataString};
-use crate::handlers::{external::external_router_config, files::files_router_config};
-use actix_web::{get, middleware::Logger, App, HttpResponse, HttpServer, Responder};
-use serde::{Deserialize, Serialize};
-use utoipa::{
-    openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
-    Modify, OpenApi, ToSchema,
+use crate::handlers::{
+    external::external_router_config, files::files_router_config, sse::sse_router_config,
 };
+use actix_web::{middleware::Logger, App, HttpServer};
+use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
 
 mod dtos;
@@ -34,8 +32,9 @@ async fn main() -> std::io::Result<()> {
             )
             .configure(files_router_config)
             .configure(external_router_config)
+            .configure(sse_router_config)
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", 8000))?
     .run()
     .await
 }
