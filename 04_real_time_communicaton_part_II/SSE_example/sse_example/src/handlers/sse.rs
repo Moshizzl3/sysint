@@ -1,7 +1,5 @@
-use crate::dtos::response_dto;
 use crate::service::file_service::DataReader;
 use actix_web::web;
-use actix_web::web::Data;
 use actix_web::{get, http::header, HttpResponse, Responder};
 use bytes::Bytes;
 use futures::stream::StreamExt;

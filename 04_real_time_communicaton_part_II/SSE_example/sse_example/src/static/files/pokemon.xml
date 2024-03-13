@@ -1,9 +1,0 @@
-<Pokemon>
-    <name>lassi</name>
-    <level>45</level>
-    <elements>
-        <element>Fire</element>
-        <element>water</element>
-        <element>ice</element>
-    </elements>
-</Pokemon>

@@ -1,10 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::dtos::pokemon_dtos::PokemonDTO;
-use utoipa::{
-    openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
-    Modify, OpenApi, ToSchema,
-};
+use utoipa::ToSchema;
 
 #[derive(Serialize, Deserialize, ToSchema)]
 #[aliases(ResponseDataString = ResponseData<String>, ResponseDataPokemonDTO = ResponseData<PokemonDTO>)]
