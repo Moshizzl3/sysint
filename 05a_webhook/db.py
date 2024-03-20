@@ -40,8 +40,10 @@ def get_db():
         db.close()
 
 
-def update_order_status(db: Session, order_id: str, new_status: str):
-    order = db.query(Subscription).filter(Subscription.order_id == order_id).first()
+def update_order_status(db: Session, order_number: str, new_status: str):
+    order = (
+        db.query(Subscription).filter(Subscription.order_number == order_number).first()
+    )
     if order:
         order.status = new_status
         db.commit()

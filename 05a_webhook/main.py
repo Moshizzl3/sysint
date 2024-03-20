@@ -14,6 +14,11 @@ class SubscriptionRequestDTO(BaseModel):
     order_number: str
 
 
+class StatusUpdateDTO(BaseModel):
+    status: str
+    order_number: str
+
+
 T = TypeVar("T")
 
 
@@ -49,12 +54,15 @@ async def subscribe_to_webhook(
 
 @app.post("/update_order_status")
 async def update_order_status_endpoint(
-    order_id: str, status: str, db: Session = Depends(get_db)
+    input_dto: StatusUpdateDTO, db: Session = Depends(get_db)
 ):
-    order = update_order_status(db, order_id, status)
+    order = update_order_status(db, input_dto.order_number, input_dto.status)
 
     if order:
-        await notify_subscriber(order.url, status)
+        notify_subscriber(
+            order.url,
+            input_dto,
+        )
         return {"message": "Order updated and subscribers notified"}
     else:
         raise HTTPException(status_code=404, detail="Order not found")
