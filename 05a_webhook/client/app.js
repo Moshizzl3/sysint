@@ -2,15 +2,22 @@ import express from "express";
 
 const app = express();
 
+let lastOrder = "No order yet"; // Store the latest status here
+
+app.use(express.static("public"));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/status", (req, res) => {
-  console.log(req.body);
+  lastOrder = req.body; // Update the latest status
   res.sendStatus(200);
 });
 
+app.get("/latest-status", (req, res) => {
+  res.json(lastOrder);
+});
 
-app.listen(8080, () => {
-  console.log("server running on: ", 8080);
+app.listen(80, () => {
+  console.log("Server running on port 80");
 });
