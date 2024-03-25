@@ -6,6 +6,8 @@ You can also test the connectivity by pinging the endpoint.
 
 ## Usage
 
+Go to: <https://webhookapp420.azurewebsites.net/docs>
+
 ### Subscribing to a Webhook
 
 To subscribe to a webhook, send a POST request to `/subscription` with the following JSON payload:
