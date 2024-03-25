@@ -50,3 +50,4 @@ def update_order_status(db: Session, order_number: str, new_status: str):
         db.refresh(order)
         return order
     return None
+

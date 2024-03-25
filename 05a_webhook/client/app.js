@@ -11,6 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/status", (req, res) => {
   lastOrder = req.body; // Update the latest status
+  console.log(req.body);
+  res.sendStatus(200);
+});
+
+app.post("/ping", (req, res) => {
+  console.log(req.body);
   res.sendStatus(200);
 });
 
@@ -18,6 +24,7 @@ app.get("/latest-status", (req, res) => {
   res.json(lastOrder);
 });
 
-app.listen(80, () => {
-  console.log("Server running on port 80");
+const PORT = 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
