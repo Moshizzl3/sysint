@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status Updater</title>
+</head>
+<body>
+    <h1>Status Updater</h1>
+
+    <div id="status-display">
+        No status yet
+    </div>
+    
+    <script>
+        console.log("hello")
+        function pollStatus() {
+        fetch('/latest-status')
+            .then(response => response.json())
+            .then(data => {
+                const statusDisplay = document.getElementById('status-display');
+                const currentTime = new Date().toLocaleTimeString();
+                const statusText = `Time: ${currentTime} | Order Number: ${data.order_number} | Status: ${data.status}`;
+                const pTag = document.createElement('p');
+                pTag.textContent = statusText;
+                statusDisplay.appendChild(pTag);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+        setInterval(pollStatus, 2000); // Poll every 2 seconds
+    </script>
+</body>
+</html>

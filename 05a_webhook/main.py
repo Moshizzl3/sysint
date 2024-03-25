@@ -1,16 +1,31 @@
 from fastapi import FastAPI, Depends, HTTPException
 import uvicorn
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import TypeVar, Generic
 from db import get_db, Subscription, SubscriptionStatus, update_order_status
 from notifications import notify_subscriber
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 app = FastAPI()
 
 
 class SubscriptionRequestDTO(BaseModel):
     url: str
+    order_number: str
+
+
+class PingRequestDTO(BaseModel):
+    url: str
+
+
+class PingResponseDTO(BaseModel):
+    message: str = Field(default="Ping from backend")
+    time: str = str(datetime.now())
+
+
+class StatusUpdateDTO(BaseModel):
+    status: SubscriptionStatus = Field(..., description="Status of the subscription")
     order_number: str
 
 
@@ -43,21 +58,40 @@ async def subscribe_to_webhook(
     )
     db.add(new_subscription)
     db.commit()
-    print("hello")
     return ResponseDataDTO(data=MessageOk())
 
 
 @app.post("/update_order_status")
 async def update_order_status_endpoint(
-    order_id: str, status: str, db: Session = Depends(get_db)
+    input_dto: StatusUpdateDTO, db: Session = Depends(get_db)
 ):
-    order = update_order_status(db, order_id, status)
+    """Endpoint for updating order. This triggers webhook event.
+    Valid inputs:
+        - PENDING
+        - PROCESSING
+        - COMPLETED
+        - CANCELLED
+    """
+
+    input_dto.status = str(input_dto.status.name).upper()
+    order = update_order_status(db, input_dto.order_number, input_dto.status)
 
     if order:
-        await notify_subscriber(order.url, status)
-        return {"message": "Order updated and subscribers notified"}
+        notify_subscriber(
+            order.url,
+            input_dto,
+        )
+        return MessageOk(message="Order updated and subscribers notified")
     else:
         raise HTTPException(status_code=404, detail="Order not found")
+
+
+@app.post("/ping")
+async def ping_url(input_dto: PingRequestDTO) -> MessageOk:
+    """Endpoint for pinging the webhook."""
+
+    notify_subscriber(input_dto.url, PingResponseDTO())
+    return MessageOk(message="Ping 🔔")
 
 
 if __name__ == "__main__":
