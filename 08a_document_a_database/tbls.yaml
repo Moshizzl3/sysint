@@ -1,0 +1,2 @@
+dsn: postgres://rpg_api:rpg_api@localhost:5435/rpg_api
+docPath: doc/schema
