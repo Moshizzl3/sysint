@@ -13,11 +13,14 @@ class ConnectionManager:
         if self.active_connections.get(id):
             self.active_connections.pop(id)
 
-    async def send_personal_message(self, message: str, id: str):
+    async def send_personal_message(
+        self, message: str, id: str, user_websocket: WebSocket
+    ):
         websocket = self.active_connections.get(id)
         print(websocket)
         if websocket:
             await websocket.send_text(message)
+            await user_websocket.send_text(message)
 
     async def broadcast(self, message: str):
         for connection in self.active_connections.values():

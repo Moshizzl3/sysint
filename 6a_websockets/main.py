@@ -74,12 +74,12 @@ async def websocket_endpoint_personal_message(websocket: WebSocket, user_id: str
             data = await websocket.receive_text()
             json_data = json.loads(data)
             if not json_data["user_id"]:
-                print("broadcast")
                 await manager.broadcast(f"{user_id}: {json_data['message']}")
             else:
-                print("personal")
                 await manager.send_personal_message(
-                    f"{user_id}: {json_data['message']}", json_data["user_id"]
+                    f"{user_id} whispered: {json_data['message']}",
+                    json_data["user_id"],
+                    websocket,
                 )
     except WebSocketDisconnect:
         manager.disconnect(user_id)
