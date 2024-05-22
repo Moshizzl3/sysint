@@ -1,6 +1,6 @@
 # Chat Service documentation.
 
-Code documentation for endpoints in the chat-service, in our DLS semester project.
+Code documentation for endpoints in the chat-service, in our DLS semester project.<br>
 
 Using `mkdocs`for pyhton we have deployed it to github pages:
 
