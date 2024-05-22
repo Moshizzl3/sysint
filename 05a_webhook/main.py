@@ -16,7 +16,7 @@ class SubscriptionRequestDTO(BaseModel):
 
 
 class PingRequestDTO(BaseModel):
-    url: str
+    url: str | None
 
 
 class PingResponseDTO(BaseModel):

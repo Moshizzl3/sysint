@@ -4,6 +4,10 @@
 
 This document outlines the access privileges and connection instructions for different users in the database. Privileges are granted on a user level and NOT role level.
 
+## DB docs
+You can use docs to view available tables, columns, etc.
+https://github.com/Moshizzl3/sysint/blob/main/04_real_time_communicaton_part_II/Database/dbdoc/README.md
+
 ### Users and Their Privileges
 
 pgcli is used in the example as a service, you can copy paste the commands into the terminal if you have pgcli installed.
