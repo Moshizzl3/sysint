@@ -51,3 +51,9 @@ def update_order_status(db: Session, order_number: str, new_status: str):
         return order
     return None
 
+
+def get_all_urls(db: Session):
+    urls = db.query(Subscription.url).all()
+    if urls:
+        return urls
+    return None

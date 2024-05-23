@@ -52,3 +52,5 @@ You can test your webhook by sending a POST request to /ping with the following 
 ```
 
 This will send a ping to the specified URL.
+
+If url is null, a ping will be sent to all urls subscribed.

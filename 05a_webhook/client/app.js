@@ -21,6 +21,7 @@ app.post("/ping", (req, res) => {
 });
 
 app.get("/latest-status", (req, res) => {
+  print(req)
   res.json(lastOrder);
 });
 
