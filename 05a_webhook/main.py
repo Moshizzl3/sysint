@@ -2,7 +2,13 @@ from fastapi import FastAPI, Depends, HTTPException
 import uvicorn
 from pydantic import BaseModel, Field
 from typing import TypeVar, Generic
-from db import get_db, Subscription, SubscriptionStatus, update_order_status
+from db import (
+    get_db,
+    Subscription,
+    SubscriptionStatus,
+    update_order_status,
+    get_all_urls,
+)
 from notifications import notify_subscriber
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -42,7 +48,7 @@ class MessageFail(BaseModel):
     message: str = "Object was not created."
 
 
-class ResponseDataDTO(Generic[T], BaseModel):
+class ResponseDataDTO(BaseModel, Generic[T]):
     data: T
 
 
@@ -87,8 +93,16 @@ async def update_order_status_endpoint(
 
 
 @app.post("/ping")
-async def ping_url(input_dto: PingRequestDTO) -> MessageOk:
-    """Endpoint for pinging the webhook."""
+async def ping_url(
+    input_dto: PingRequestDTO, db: Session = Depends(get_db)
+) -> MessageOk:
+    """Endpoint for pinging the url. If url is None, a ping will go out to all urls."""
+
+    if input_dto.url is None:
+        urls = get_all_urls(db=db)
+
+        for url in urls:
+            notify_subscriber(url, PingResponseDTO())
 
     notify_subscriber(input_dto.url, PingResponseDTO())
     return MessageOk(message="Ping 🔔")
