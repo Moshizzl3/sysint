@@ -73,15 +73,21 @@ GRANT SELECT ON accounts, transactions TO myreadusersome;
 
 CREATE USER mywriteuserall password '123';
 GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO mywriteuserall;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO mywriteuserall;
+
 
 CREATE USER mywriteusersome password '123';
 GRANT SELECT,INSERT,UPDATE,DELETE ON accounts TO mywriteusersome;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO mywriteusersome;
+
 
 CREATE USER myviewuser password '123';
 GRANT SELECT ON tranction_view TO myviewuser;
 
 CREATE USER myfunctionuser password '123';
 GRANT EXECUTE ON FUNCTION generate_test_data(INT, INT, INT) TO myfunctionuser;
+GRANT INSERT ON ALL TABLES IN SCHEMA public TO myfunctionuser;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO myfunctionuser;
 
 CREATE USER mycolumnuserread password '123';
 GRANT SELECT(id, user_name) ON users TO mycolumnuserread;

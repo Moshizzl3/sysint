@@ -25,7 +25,7 @@ class PingRequestDTO(BaseModel):
     url: str | None
 
 
-class PingResponseDTO(BaseModel):
+class PingMessageDTO(BaseModel):
     message: str = Field(default="Ping from backend")
     time: str = str(datetime.now())
 
@@ -57,14 +57,17 @@ async def subscribe_to_webhook(
     input_dto: SubscriptionRequestDTO, db: Session = Depends(get_db)
 ) -> ResponseDataDTO[MessageOk]:
     """Subscribe to webhook."""
-    new_subscription = Subscription(
-        url=input_dto.url,
-        order_number=input_dto.order_number,
-        status=SubscriptionStatus.PROCESSING,
-    )
-    db.add(new_subscription)
-    db.commit()
-    return ResponseDataDTO(data=MessageOk())
+    try:
+        new_subscription = Subscription(
+            url=input_dto.url,
+            order_number=input_dto.order_number,
+            status=SubscriptionStatus.PROCESSING,
+        )
+        db.add(new_subscription)
+        db.commit()
+        return ResponseDataDTO(data=MessageOk())
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"Error: {e}")
 
 
 @app.post("/update_order_status")
@@ -93,18 +96,16 @@ async def update_order_status_endpoint(
 
 
 @app.post("/ping")
-async def ping_url(
-    input_dto: PingRequestDTO, db: Session = Depends(get_db)
-) -> MessageOk:
-    """Endpoint for pinging the url. If url is None, a ping will go out to all urls."""
+async def ping_url(db: Session = Depends(get_db)) -> MessageOk:
+    """Endpoint for pinging all urls."""
 
-    if input_dto.url is None:
-        urls = get_all_urls(db=db)
+    urls = get_all_urls(db=db)
 
-        for url in urls:
-            notify_subscriber(url, PingResponseDTO())
+    if not urls:
+        raise HTTPException(status_code=404, detail="No urls found")
+    for url in urls:
+        notify_subscriber(str(url), PingMessageDTO())
 
-    notify_subscriber(input_dto.url, PingResponseDTO())
     return MessageOk(message="Ping 🔔")
 
 
