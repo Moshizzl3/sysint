@@ -55,5 +55,5 @@ def update_order_status(db: Session, order_number: str, new_status: str):
 def get_all_urls(db: Session):
     urls = db.query(Subscription.url).all()
     if urls:
-        return urls
+        return [url[0] for url in urls]
     return None

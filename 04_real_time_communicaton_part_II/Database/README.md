@@ -18,6 +18,7 @@ host: dbservername.postgres.database.azure.com
 port: 5432
 user: XXX
 password: 123
+db: testdb
 ```
 
 
