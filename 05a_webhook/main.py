@@ -3,11 +3,13 @@ import uvicorn
 from pydantic import BaseModel, Field
 from typing import TypeVar, Generic
 from db import (
+    delete_url,
     get_db,
     Subscription,
     SubscriptionStatus,
     update_order_status,
     get_all_urls,
+    delete_url,
 )
 from notifications import notify_subscriber
 from sqlalchemy.orm import Session
@@ -23,6 +25,9 @@ class SubscriptionRequestDTO(BaseModel):
 
 class PingRequestDTO(BaseModel):
     url: str | None
+
+
+class DeleteUrlDTO(PingRequestDTO): ...
 
 
 class PingMessageDTO(BaseModel):
@@ -70,6 +75,18 @@ async def subscribe_to_webhook(
         raise HTTPException(status_code=404, detail=f"Error: {e}")
 
 
+@app.delete("/subscription")
+async def unsubscribe_to_webhook(
+    input_dto: DeleteUrlDTO, db: Session = Depends(get_db)
+) -> ResponseDataDTO[MessageOk]:
+    """Subscribe to webhook."""
+    try:
+        delete_url(db=db, url=input_dto.url)
+        return ResponseDataDTO(data=MessageOk(message="Object was deleted"))
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"Error: {e}")
+
+
 @app.post("/update_order_status")
 async def update_order_status_endpoint(
     input_dto: StatusUpdateDTO, db: Session = Depends(get_db)
@@ -100,7 +117,6 @@ async def ping_url(db: Session = Depends(get_db)) -> MessageOk:
     """Endpoint for pinging all urls."""
 
     urls = get_all_urls(db=db)
-
     if not urls:
         raise HTTPException(status_code=404, detail="No urls found")
     for url in urls:
