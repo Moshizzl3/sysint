@@ -23,7 +23,7 @@ This will register your URL to receive updates about the specified order.
 
 ### Updating Order Status
 
-To trigger an update, send a POST request to /update_order_status with the following JSON payload:
+To trigger an update, send a Patch request to /order-status with the following JSON payload:
 
 ```json
 {
@@ -41,15 +41,13 @@ Valid status values are:
 
 This will update the order status and notify the subscribed URLs about the change.
 
-### Pinging the Webhook
+### Pinging the urls
 
-You can test your webhook by sending a POST request to /ping with the following JSON payload:
+You can test your webhook by sending a POST request to /ping with the following JSON payload.
 
-```json
-{
-  "url": "<your_callback_url>"
-}
-```
+### Delete url from webhook
+You can delete a specific url, by using the delete endpoint, and passing a url.
+
 
 This will send a ping to the specified URL.
 

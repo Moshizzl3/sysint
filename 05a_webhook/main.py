@@ -72,7 +72,7 @@ async def subscribe_to_webhook(
         db.commit()
         return ResponseDataDTO(data=MessageOk())
     except Exception as e:
-        raise HTTPException(status_code=404, detail=f"Error: {e}")
+        raise HTTPException(status_code=500, detail=f"Error: {e}")
 
 
 @app.delete("/subscription")
@@ -87,7 +87,7 @@ async def unsubscribe_to_webhook(
         raise HTTPException(status_code=404, detail=f"Error: {e}")
 
 
-@app.post("/update_order_status")
+@app.patch("/order-status")
 async def update_order_status_endpoint(
     input_dto: StatusUpdateDTO, db: Session = Depends(get_db)
 ):
