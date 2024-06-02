@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 import xml.etree.ElementTree as ET
 import yaml
+import file_service
 
 
 def read_file(file_path: str) -> pd.DataFrame | None:
@@ -16,7 +17,7 @@ def read_file(file_path: str) -> pd.DataFrame | None:
     elif file_path.endswith(".xml"):
         return pd.read_xml(file_path)
     elif file_path.endswith(".yaml"):
-        return pd.json_normalize()
+        return yaml.safe_dump(file_path)
 
     return None
 
@@ -41,26 +42,29 @@ def convert_to_format(df: pd.DataFrame, format_type: str) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Convert file to specified format.")
-    parser.add_argument("-f", "--file", required=True, help="Input file path")
-    parser.add_argument(
-        "-t",
-        "--to",
-        required=True,
-        help="Format to convert to (text, xml, yaml, json, csv)",
-    )
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser(description="Convert file to specified format.")
+    # parser.add_argument("-f", "--file", required=True, help="Input file path")
+    # parser.add_argument(
+    #     "-t",
+    #     "--to",
+    #     required=True,
+    #     help="Format to convert to (text, xml, yaml, json, csv)",
+    # )
+    # args = parser.parse_args()
 
-    df = read_file(args.file)
-    if df is None:
-        print("Not a valid input.")
-        return
+    # df = read_file(args.file)
+    # if df is None:
+    #     print("Not a valid input.")
+    #     return
 
-    try:
-        convert_to_format(df, args.to.lower())
-        print(f"file is saved in format: {args.to}")
-    except ValueError as e:
-        print(e)
+    # try:
+    #     convert_to_format(df, args.to.lower())
+    #     print(f"file is saved in format: {args.to}")
+    # except ValueError as e:
+    #     print(e)
+
+    file_content = file_service.read_yaml_file()
+    print(file_content)
 
 
 if __name__ == "__main__":
