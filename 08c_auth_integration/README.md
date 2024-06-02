@@ -26,3 +26,7 @@ i also needed to add the valid callback urls:
 now i can view users created from the website:
 <img src="screenshots/06.png" alt="alt text" width="400"/>
 
+
+
+Other tools:
+Okta, appid (ibmcloud), Google Identity Platform
