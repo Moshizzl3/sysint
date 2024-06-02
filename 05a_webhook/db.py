@@ -12,7 +12,7 @@ class SubscriptionStatus(enum.Enum):
     CANCELLED = "cancelled"
 
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./urls.db"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
@@ -57,3 +57,9 @@ def get_all_urls(db: Session):
     if urls:
         return [url[0] for url in urls]
     return None
+
+
+def delete_url(db: Session, url: str):
+    db.query(Subscription).filter(Subscription.url == url).delete()
+    db.commit()
+
