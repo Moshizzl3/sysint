@@ -1,4 +1,18 @@
 Uses alembic to migrate for 3 databases:
+
 - Mysql
 - ProstgreSQL
 - SQLite
+
+To make a migration file
+
+```bash
+poetry run alembic revision --autogenerate -m "migrate_to_postgresl"
+```
+
+To migrate up and down
+
+```bash
+poetry run alembic upgrade head
+poetry run alembic downgrade head
+```
