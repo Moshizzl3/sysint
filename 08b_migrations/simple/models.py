@@ -10,7 +10,7 @@ class Student(Base):
     __tablename__ = "students"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(60), unique=True)
+    name = Column(String(60))
     age = Column(Integer)
     note = Column(String(200))
     create_at = Column(DateTime, default=func.now())
@@ -19,13 +19,12 @@ class Student(Base):
         return f"id: {self.id}, name: {self.name}"
 
 
-class StudentTest(Base):
-    __tablename__ = "students_test"
+class College(Base):
+    __tablename__ = "college"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(60), unique=True)
-    age = Column(Integer)
-    note = Column(String(200))
+    name = Column(String(60))
+    location = Column(String(60))
     create_at = Column(DateTime, default=func.now())
 
     def __repr__(self):
